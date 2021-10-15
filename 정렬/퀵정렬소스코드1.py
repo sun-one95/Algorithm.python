@@ -3,8 +3,8 @@ array = [5, 7, 9, 0, 3, 1, 6, 2, 4, 8]
 def quick_sort(array, start, end):
     if start >= end: # 원소가 1개인 경우
         return
-    le = start
-    pivot = start + 1
+    pivot = start
+    le = start + 1
     ri = end
     while le <= ri:
         # pivot 보다 큰 데이터를 찾을 때까지 반복
