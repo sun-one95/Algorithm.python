@@ -11,4 +11,4 @@ arr = list(map(int, sys.stdin.readline().split()))
 #         cnt[i] += abs(arr[i] - arr[j])
 
 arr.sort()
-print(arr[(n - 1) // 2])
+print(arr[(n - 1) // 2]) 
