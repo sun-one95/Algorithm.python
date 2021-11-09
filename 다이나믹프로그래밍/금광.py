@@ -57,4 +57,4 @@ for i in range(tc):
 # j = 1, i = 0 일 때,
 # left_up = 0, left_down = dp[1][0], left = dp[0][0]
 # dp[0][1] = dp[0][1] +  2 = 5
-#  
+
