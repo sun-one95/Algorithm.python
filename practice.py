@@ -1,15 +1,35 @@
-n = int(input())
-arr = list(map(int, input().split()))
-arr.sort()
+from collections import deque
 
-result = 0 # 그룹의 총수
+n, k = map(int, input().split())
+graph = [] # 리스트 정보를 담은 배열
+data = [] # 바이러스 정보를 담은 배열
 
-count = 0 # 현재 그룹에 포함된 모험가의 수
+for i in range(n):
+    graph.append(list(map(int, input().split())))
+    for j in range(n):
+        # 바이러스, 시간, x 위치, y 위치
+        data.append((graph[i][j], 0, i, i))
 
-for i in arr:
-    count += 1
-    if count >= i:
-        result += 1
-        count = 0
+data.sort()
 
-print(result)
+target_s, target_x, target_y = map(int, input().split())
+
+dx = [-1, 1, 0, 0]
+dy = [0, 0, 1, -1]
+
+q = deque(data)
+
+while q:
+    virus, s, x, y = q.popleft()
+    if s == target_s:
+        break
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
+        if 0 <= nx and nx < n and 0 <= ny and ny < n:
+            # 방문하지 않았다면 그 위치에 바이러스 넣기
+            if graph[nx][ny] == 0:
+                graph[nx][ny] = virus
+                q.append((virus, s + 1, nx, ny))
+
+print(graph[target_x - 1][target_y - 1])
