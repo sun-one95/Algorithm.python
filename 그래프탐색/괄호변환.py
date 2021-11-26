@@ -45,7 +45,7 @@ def solution(p):
         answer += "".join(u)
     return answer
 
-print(solution('(()())()'))
+print(solution('))(()))((('))
 
 # str = 'happy'
 # u = list(str[1:-1])
