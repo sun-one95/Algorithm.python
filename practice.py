@@ -1,17 +1,22 @@
-import heapq
-
 n = int(input())
-heap = []
-for i in range(n):
-    data = int(input())
-    heapq.heappush(heap, data)
-result = 0
+t = []
+p = []
+dp = [0] * (n + 1)
+max_value = 0
 
-while len(heap) != 1:
-    one = heapq.heappop(heap)
-    two = heapq.heappop(heap)
-    sum_value = one + two
-    result += sum_value
-    heapq.heappush(heap, sum_value)
+for _ in range(n):
+    x, y = map(int, input().split())
+    t.append(x)
+    p.append(y)
 
-print(result)
+for i in range(n - 1, -1, -1):
+    time = t[i] + i
+    if time <= n:
+        dp[i] = max(p[i] + dp[time], max_value)
+        max_value = dp[i]
+    else:
+        dp[i] = max_value
+
+print(max_value)
+
+
