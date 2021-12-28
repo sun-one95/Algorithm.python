@@ -1,12 +1,30 @@
+inf = int(1e9)
+
 n = int(input())
-arr = list(map(int, input().split())) # n개의 숫자들
-oper_cnt = list(map(int, input().split())) # 연산자 개수(+, -, x, %)
+m = int(input())
 
-operator_types = ['+', '-', '*', '//']
-oper = []
-for i in range(4):
-    for j in range(oper_cnt[i]):
-        oper.append(operator_types[i])
+graph = [[inf] * (n + 1) for _ in range(n + 1)]
 
-# 보통 큰 수를 만들려면 곱하기를 먼저하는 게 좋을 듯
-# 아닌가? 나누기를 먼저해서 
+for a in range(1, n + 1):
+    for b in range(1, n + 1):
+        if a == b:
+            graph[a][b] = 0
+
+for _ in range(m):
+    a, b, c = map(int, input().split())
+    if c < graph[a][b]:
+        graph[a][b] = c
+
+
+for k in range(1, n + 1):
+    for a in range(1, n + 1):
+        for b in range(1, n + 1):
+            graph[a][b] = min(graph[a][b], graph[a][k] + graph[k][b])
+
+for a in range(1, n + 1):
+    for b in range(1, n + 1):
+        if graph[a][b] == inf:
+            print(0, end=" ")
+        else:
+            print(graph[a][b], end=" ")
+    print()
