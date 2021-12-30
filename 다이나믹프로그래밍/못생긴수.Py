@@ -10,7 +10,7 @@ next2, next3, next5 = 2, 3, 5
 # 1부터 n까지의 못생긴 수를 찾기
 for i in range(1, n):
     # 가능한 곱셈 결과 중에서 가장 적은 수를 선택
-    dp[i] = min(next2, next3, next5)
+    dp[i] = min(next2, next3, next5)       
     if dp[i] == next2:
         i2 += 1
         next2 = dp[i2] * 2
