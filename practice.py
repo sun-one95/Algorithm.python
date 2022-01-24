@@ -1,7 +1,3 @@
-from gettext import find
-import re
-
-
 def find_parent(parent, x):
     if parent[x] != x:
         parent[x] = find_parent(parent, parent[x])
@@ -15,29 +11,40 @@ def union_parent(parent, a, b):
     else:
         parent[a] = b
 
-# 노드와 간선의 개수 입력받기
-n, m = map(int, input().split())
-# 부모노드를 담은 배열 선언
+n = int(input())
 parent = [0] * (n + 1)
-result = 0
-# 부모를 자기 자신으로 초기화
+
 for i in range(1, n + 1):
-    parent[i] = i  
+    parent[i] = i
 
 edges = []
+result = 0
 
-for _ in range(m):
-    a, b, cost = map(int, input().split())
-    edges.append((cost, a, b))
+x = []
+y = []
+z = []
+
+for i in range(1, n + 1):
+    data = list(map(int, input().split()))
+    x.append((data[0], i))
+    y.append((data[1], i))
+    z.append((data[2], i))
+
+x.sort()
+y.sort()
+z.sort()
+
+for i in range(n - 1):
+    edges.append((x[i + 1][0] - x[i][0], x[i + 1][1], x[i][1]))
+    edges.append((y[i + 1][0] - y[i][0], y[i + 1][1], y[i][1]))
+    edges.append((z[i + 1][0] - z[i][0], z[i + 1][1], z[i][1]))
 
 edges.sort()
-total = 0
 
 for edge in edges:
     cost, a, b = edge
-    total += cost
     if find_parent(parent, a) != find_parent(parent, b):
         union_parent(parent, a, b)
         result += cost
 
-print(total - result)
+print(result)
