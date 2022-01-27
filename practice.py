@@ -1,50 +1,69 @@
-def find_parent(parent, x):
-    if parent[x] != x:
-        parent[x] = find_parent(parent, parent[x])
-    return parent[x]
-
-def union_parent(parent, a, b):
-    a = find_parent(parent, a)
-    b = find_parent(parent, b)
-    if a < b:
-        parent[b] = a
-    else:
-        parent[a] = b
+from collections import deque
+INF = 1e9
 
 n = int(input())
-parent = [0] * (n + 1)
+arr = []
+for i in range(n):
+    arr.append(list(map(int, input().split())))
 
-for i in range(1, n + 1):
-    parent[i] = i
+now_size = 2
+now_x, now_y = 0, 0
 
-edges = []
+for i in range(n):
+    for j in range(n):
+        if arr[i][j] == 9:
+            now_x, now_y = i, j
+            arr[now_x][now_y] = 0
+
+dx = [-1, 0, 1, 0]
+dy = [0, 1, 0, -1]
+
+def bfs():
+    dist = [[-1] * n for i in range(n)]
+    q = deque([(now_x, now_y)])
+    dist[now_x][now_y] = 0
+    while q:
+        x, y = q.popleft()
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if 0 <= nx and nx < n and 0 <= ny and ny < n:
+                if dist[nx][ny] == -1 and now_size >= arr[nx][ny]:
+                    dist[nx][ny] = dist[x][y] + 1
+                    q.append((nx, ny))
+
+    return dist
+
+def find(dist):
+    x, y = 0, 0
+    min_dist = INF
+    for i in range(n):
+        for j in range(n):
+            if dist[i][j] != -1 and 1 < arr[i][j] and arr[i][j] < now_size:
+                if dist[i][j] < min_dist:
+                    min_dist = dist[i][j]
+                    x, y = i, j
+    
+    if min_dist == INF:
+        return None
+    else:
+        return x, y, min_dist
+
 result = 0
+ate = 0
 
-x = []
-y = []
-z = []
+while True:
+    value = find(bfs())
+    if value == None:
+        print(result)
+        break
+    else:
+        now_x, now_y = value[0], value[1]
+        result += value[2]
+        arr[now_x][now_y] = 0
+        ate += 1
+        if ate >= now_size:
+            now_size += 1
+            ate = 0
 
-for i in range(1, n + 1):
-    data = list(map(int, input().split()))
-    x.append((data[0], i))
-    y.append((data[1], i))
-    z.append((data[2], i))
-
-x.sort()
-y.sort()
-z.sort()
-
-for i in range(n - 1):
-    edges.append((x[i + 1][0] - x[i][0], x[i + 1][1], x[i][1]))
-    edges.append((y[i + 1][0] - y[i][0], y[i + 1][1], y[i][1]))
-    edges.append((z[i + 1][0] - z[i][0], z[i + 1][1], z[i][1]))
-
-edges.sort()
-
-for edge in edges:
-    cost, a, b = edge
-    if find_parent(parent, a) != find_parent(parent, b):
-        union_parent(parent, a, b)
-        result += cost
-
-print(result)
+    
