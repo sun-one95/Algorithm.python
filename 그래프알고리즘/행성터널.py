@@ -33,7 +33,7 @@ for i in range(1, n + 1):
     data = list(map(int, input().split()))
     x.append((data[0], i))
     y.append((data[1], i))
-    z.append((data[2], id))
+    z.append((data[2], i))
 
 x.sort()
 y.sort()
