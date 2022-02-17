@@ -26,7 +26,7 @@ def turn(direction, c):
     return direction
 
 def simulate():
-    x, y = 1, 1 # 뱀의 머리 위치
+    x, y = 0, 0 # 뱀의 머리 위치
     data[x][y] = 2 # 뱀이 존재하는 위치는 2로 표시
     direction = 0 # 처음에는 동쪽을 보고 있음
     time = 0 # 시작한 뒤에 지난 '초' 시간
@@ -36,7 +36,7 @@ def simulate():
         nx = x + dx[direction]
         ny = y + dy[direction]
         # 맵 범위 안에 있고, 뱀의 몸퉁이 없는 위치라면
-        if 1 <= nx and nx <= n and 1 <= ny and ny <= n and data[nx][ny] != 2:
+        if 0 <= nx and nx < n and 0 <= ny and ny < n and data[nx][ny] != 2:
             # 사과가 없다면 이동 후에 꼬리 제거
             if data[nx][ny] == 0:
                 data[nx][ny] = 2
