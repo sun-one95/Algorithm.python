@@ -1,57 +1,28 @@
-n = int(input()) # 보드의 크기
-k = int(input()) # 사과의 개수
-board = [[0] * (n + 1) for _ in range(n + 1)] # 보드
-info = [] # 방향 정보 리스트
+data = input()
+cnt0 = 0 # 전부 0으로 바꾸는 경우
+cnt1 = 0 # 전부 1로 바꾸는 경우
 
-for _ in range(k):
-    a, b = map(int, input().split())
-    board[a][b] = 1
+# 첫 번쨰 원소에 대해서 처리
+if data[0] == '1':
+    cnt0 += 1
+else:
+    cnt1 += 1
 
-l = int(input())
-for _ in range(l):
-    x, c = input().split()
-    info.append((int(x), c))
-
-def turn(direction, c):
-    if c == 'L':
-        direction = (direction - 1) % 4
-    else:
-        direction = (direction + 1) % 4
-    return direction
-
-# 동, 남, 서, 북 순으로 이동
-dx = [0, 1, 0, -1]
-dy = [1, 0, -1, 0]
-
-def simulate():
-    x, y = 0, 0 # 출발점
-    direction = 0 # 동쪽으로 출발
-    board[x][y] = 2
-    q = [(x, y)]
-    time = 0
-    index = 0
-    while True:
-        nx = x + dx[direction]
-        ny = y + dy[direction]
-        if 0 <= nx and nx < n and 0 <= ny and ny < n and board[nx][ny] != 2:
-            if board[nx][ny] == 0:
-                px, py = q.pop(0)
-                board[px][py] = 0
-                board[nx][ny] = 2
-                q.append((nx, ny))
-            if board[nx][ny] == 1:
-                board[nx][ny] = 2
-                q.append((nx, ny))
+for i in range(len(data) - 1):
+    if data[i] != data[i + 1]:
+        # 다음 수에서 1로 바뀌는 경우
+        if data[i + 1] == '1':
+            cnt0 += 1
         else:
-            time += 1
-            break
-        time += 1
-        x, y = nx, ny
-        if index < l and time == info[index][0]:
-            direction = turn(direction, info[index][1])
-            index += 1
-        
+            cnt1 += 1
 
-    return time
+print(min(cnt0, cnt1))
 
-print(simulate())
+
+# 이 문제는 어려웠던게 일일히 숫자를 확인해서 0인 경우와 1인 경우를 찾은 다음에 어떻게 해야 뒤집고 그 최소경우의 수를 구할 수 있는지 좋은 방법이 잘 떠오르지 못했다.
+# 위 방법은 변수를 두개 준비해서 하나는 0으로 바꿨을 때의 횟수이고, 두번째는 1로 바꿨을 때의 경우의 수이다. 하나씩 일일히 확인해서 마지막에 이 두변수 중에 가장 최속값을
+# 리턴하면 된다.
+# 첫 원소에 대해서 0인지 1인지 확인하여 0인 경우에는 1로 바꿔주고(변수0에 +1) 0인 경우(변수1에 +1) 처리해 준다.
+# 그런다음 이제 반복문을 돌려서 i번째와 i+1번째 수가 같은 지 확인하고, 다른 경우에 아까 첫번째 원소를 처리했던 것처럼 처리해 준다.
+# 실제로 코드 상에서는 1을 0으로 0을 1로 바꾸지 않고 변수들을 선언해서 바꿨다고 가정하에 +1을 해주는 방법이 인상깊었다. 이러한 방법을 유념하여 문제를 풀어가야 겠다.
+
