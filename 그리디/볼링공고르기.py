@@ -1,29 +1,34 @@
+# n, m = map(int, input().split())
+# data = list(map(int, input().split()))
+
+# result = 0
+# for i in range(n):
+#     for j in range(i + 1, n):
+#         if data[i] != data[j]:
+#             result += 1
+
+# print(result)
+
+
 n, m = map(int, input().split())
 data = list(map(int, input().split()))
 
-result = []
-for i in range(len(data)):
-    firstNum = data[i] # firstNum에 저장
-    for j in range(i + 1, len(data)):
-        secondNum = data[j] # 두번째 수를 secondNum에 저장
-        if firstNum != secondNum: # 둘이 같은 수가 아니라면, result에 푸쉬
-            result.append([firstNum, secondNum])
-
-print(len(result))
-
-# 답안지
-n, m = map(int, input().split())
-data = list(map(int, input().split()))
-
-# 1부터 10까지의 무게를 담을 수 있는 리스트
-array  = [0] * 11
+arr = [0] * 11
 
 for x in data:
-    # 각 무게에 해당하는 불량공의 개수 카운트
-    array[x] += 1
+    arr[x] += 1
 
 result = 0
-# 1부터 m 까지의 각 무게에 대하여 처리
 for i in range(1, m + 1):
-    n -= array[i] # 무게가 i인 볼링공의 개수(A가 선택할 수 있는 개수) 제외
-    result += array[i]*n # B가 선택하는 경우의 수와 곱하기
+    n -= arr[i]
+    result += arr[i] * n
+
+
+# 볼링공의 총 개수가 n개이고, 공의 무게는 1 부터 m가지의 번호로 이루어져 있다.
+# 두 사람이 선택시에 같은 무게의 번호를 고를 수 없다. 즉, 중복 무게 볼링공 선택 금지
+# 입력값으로 주어진 각 번호의 무게들을 따로 배열을 만들어서 무게들의 개수를 기록한다.
+# 그런 다음, 그 i 무게 개수에서 n - i의 개수를 곱해서 개수를 result 변수에 더한다.
+# 반복문을 통해서 위와 같은 과정을 진행한다. 하지만, 내가 여기에서 헷갈렸던건 앞에서 i 무게의 개수에 대한 경우의 수를 구했으면
+# 다음 번째 무게에 대한 경우의 수를 구할 때는 n개에서 전에 사용되었던 i 무게개수를 차감한 상태로 진행한다. 그래야 중복되지 않는다.
+# 위 문제를 접근했을 때, 그냥 이중 반복문을 통해 i번째와 i + 1 번째를 비교하여 다를때만 result 에 +1을 했었다.
+# 내 풀이보다는 위의 풀이를 좀 더 기억해야 다음 어려운 문제를 풀때, 신선하게 문제에 접근할 수 있을 것 같다.

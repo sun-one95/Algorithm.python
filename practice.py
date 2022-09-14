@@ -1,28 +1,26 @@
-data = input()
-cnt0 = 0 # 전부 0으로 바꾸는 경우
-cnt1 = 0 # 전부 1로 바꾸는 경우
+def solution(n, stages):
+    ans = []
+    length = len(stages)
 
-# 첫 번쨰 원소에 대해서 처리
-if data[0] == '1':
-    cnt0 += 1
-else:
-    cnt1 += 1
+    for i in range(1, n + 1):
+        cnt = stages.count(i)
 
-for i in range(len(data) - 1):
-    if data[i] != data[i + 1]:
-        # 다음 수에서 1로 바뀌는 경우
-        if data[i + 1] == '1':
-            cnt0 += 1
+        if length == 0:
+            fail = 0
         else:
-            cnt1 += 1
+            fail = cnt / length
 
-print(min(cnt0, cnt1))
+        ans.append((i, fail))
+        length -= cnt
+    
+    # ans.sort(key=lambda x: -int(x[1]))
+    # ans = sorted(ans, key=lambda x: x[1], reverse=True)
+    ans.sort(key=lambda x: -x[1])
+    ans = sorted(ans, key=lambda x: x[1], reverse=True)    
+    
+    ans = [i[0] for i in ans]
+    return ans
+    # students.sort(key=lambda x: (-int(x[1]), int(x[2]), -int(x[3]), x[0]))
+    
 
-
-# 이 문제는 어려웠던게 일일히 숫자를 확인해서 0인 경우와 1인 경우를 찾은 다음에 어떻게 해야 뒤집고 그 최소경우의 수를 구할 수 있는지 좋은 방법이 잘 떠오르지 못했다.
-# 위 방법은 변수를 두개 준비해서 하나는 0으로 바꿨을 때의 횟수이고, 두번째는 1로 바꿨을 때의 경우의 수이다. 하나씩 일일히 확인해서 마지막에 이 두변수 중에 가장 최속값을
-# 리턴하면 된다.
-# 첫 원소에 대해서 0인지 1인지 확인하여 0인 경우에는 1로 바꿔주고(변수0에 +1) 0인 경우(변수1에 +1) 처리해 준다.
-# 그런다음 이제 반복문을 돌려서 i번째와 i+1번째 수가 같은 지 확인하고, 다른 경우에 아까 첫번째 원소를 처리했던 것처럼 처리해 준다.
-# 실제로 코드 상에서는 1을 0으로 0을 1로 바꾸지 않고 변수들을 선언해서 바꿨다고 가정하에 +1을 해주는 방법이 인상깊었다. 이러한 방법을 유념하여 문제를 풀어가야 겠다.
-
+print(solution(5, [2, 1, 2, 6, 2, 4, 3, 3]))
