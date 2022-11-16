@@ -1,5 +1,4 @@
 import sys
-from typing import Mapping
 inf = int(1e9) # 무한을 의미하는 값으로 10억을 설정
 
 # 노드와 간선 개수 받기
