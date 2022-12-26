@@ -6,23 +6,45 @@
 from bisect import bisect_left, bisect_right
 
 n = int(input())
-n_arr = list(map(int, input().split()))
-n_arr.sort()
+arr = list(map(int, input().split()))
 
-m = int(input())
-m_arr = list(map(int, input().split()))
+result = [arr[0]]
 
-ans = []
+for item in arr:
+    if result[-1] < item:
+        result.append(item)
+    else:
+        idx = bisect_left(result, item)
+        result[idx] = item
 
-def count_by_range(arr, left_value, right_value):
-    right_index = bisect_right(arr, right_value)
-    left_index = bisect_left(arr, left_value)
+print(len(result))
 
-    return right_index - left_index
+'''
+n = 6
+arr  = [10, 20, 10, 30, 20, 50]
+result = [10]
 
-for i in m_arr:
-    count = count_by_range(n_arr, i, i)
+if result[-1] = 10  item = 10 
+idx = bisect_left(result, 10) = 0
+result[0] = 10
 
-    print(count, end=' ')
+result[-1] = 10 item = 20
+result.append(20)
+result = [10, 20]
 
+result[-1] = 20 item = 10
+idx = bisect_left(result, 10) = 0
+result[0] = 10
 
+result[-1] = 20 item = 30
+result.append(30)
+result = [10, 20, 30]
+
+result[-1] = 30 item = 20
+idx = bisect_left(result, 20) = 1
+result[1] = 20
+
+result[-1] = 30 item = 50
+result.append(50)
+result = [10, 20, 30, 50]
+'''
