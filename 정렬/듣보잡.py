@@ -46,9 +46,4 @@ for i in result:
 
 
 
-result.sort()
-print(len(result))
-for i in result:
-    print(i)
-
 
