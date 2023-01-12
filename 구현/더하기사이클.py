@@ -27,3 +27,5 @@ while True:
     cnt = cnt + 1
     if (num == n):
         break
+
+print(cnt)
