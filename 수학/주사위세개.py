@@ -17,7 +17,7 @@ if a == b and b == c:
 elif a == b:
     print(1000 + (a * 100))
 elif b == c:
-    print(1000 + (a * 100))
+    print(1000 + (b * 100))
 elif a == c:
     print(1000 + (a * 100))
 else:
