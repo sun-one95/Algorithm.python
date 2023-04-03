@@ -43,3 +43,81 @@ for i in range(n, 0, -1):
         max_idx = dp[i]
 
 print(*ans[::-1])
+
+
+'''
+n = 6
+arr = [0 10 20 10 30 20 50]
+
+dp = [0, 0, 0, 0, 0, 0, 0]
+result = [-float(inf), 10]
+dp[1] = 1
+
+dp = [0, 1, 0, 0, 0, 0, 0]
+result = [-float(inf), 10, 20]
+dp[2] = 2
+
+dp = [0, 1, 2, 0, 0, 0, 0]
+dp[3] = bisect_left(result, arr[3]) = 1
+result[dp[3]] = arr[3]
+result[1] = arr[3] = 10
+
+i = 4
+dp = [0, 1, 2, 1, 0, 0, 0]
+result = [-float(inf), 10, 20, 30]
+dp[4] = 3
+
+i = 5
+dp = [0, 1, 2, 1, 3, 0, 0]
+dp[5] = bisect_left(result, arr[5]) = 2
+result[dp[5]] = arr[5]
+result[2] = 20
+
+i = 6
+dp = [0, 1, 2, 1, 3, 2, 0]
+result = [-float(inf), 10, 20, 30, 50]
+dp[6] = 4
+
+dp = [0, 1, 2, 1, 3, 2, 4]
+result = [-float(inf), 10, 20, 30, 50]
+
+max_idx, ans = max(dp) + 1, []
+for i in range(n, 0, -1):
+    if dp[i] == max_idx - 1:
+        ans.append(arr[i])
+        max_idx = dp[i]
+
+print(*ans[::-1])
+
+max_idx, ans = 5, []
+for i in range(6, 0, -1):
+    i = 6
+    dp[6] == 4:
+        ans.append(arr[6])
+        ans = [50]
+        max_idx = dp[6] = 4
+
+    i = 5
+    dp[5] != 3
+
+    i = 4
+    dp[4] == 3:
+        ans.append(arr[4])
+        ans = [50, 30]
+        max_idx = dp[4] = 3
+
+    i = 3
+    dp[3] != 2
+
+    i = 2
+    dp[2] == 2:
+        ans.append(arr[2])
+        ans = [50, 30, 20]
+        max_idx = dp[2] = 2
+
+    i = 1
+    dp[1] == 1:
+        ans.append(arr[1])
+        ans = [50, 30, 20, 10]
+        max_idx = dp[1] = 1
+'''
