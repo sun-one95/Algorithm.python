@@ -16,23 +16,23 @@
 '''
 import sys
 input = sys.stdin.readline
-
-x, y = map(int, input().split()) # 게임 횟수(x), 이긴게임(y)
-z = int((y * 100) // x)
-
-if z >= 99:
+ 
+ 
+X, Y = map(int, input().split())
+Z = (Y * 100) // X
+if Z >= 99:
     print(-1)
 else:
-    ans = 0
-    le = 1
-    ri = x
-
-while le <= ri:
-    mid = (le + ri) // 2
-    if int((y + mid) * 100 // (x + mid)) <= z:
-        le = mid + 1
-    else:
-        ans = mid
-        ri = mid - 1
-
-print(ans)
+    answer = 0
+    left = 1
+    right = X
+ 
+    while left <= right:
+        mid = (left + right) // 2
+        if (Y+mid)*100 // (X+mid) <= Z:
+            left = mid+1
+        else:
+            answer = mid
+            right = mid - 1
+ 
+    print(answer)
