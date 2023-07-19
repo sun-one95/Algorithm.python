@@ -17,22 +17,28 @@ ans = [
     20 32 41 49 52
 ]
 
+일일히 숫자들을 다 받아서 이차 반복문으로 입력받아 정렬을 시키면 시간초과가 발생하였다.
+
+이 방법말고 다른방벋을 구상해야 했다.
+
+그게 바로 우선순위 큐이다.
+
+
 '''
-import sys
-input = sys.stdin.readline
 
+from heapq import heappush, heappop
+
+q = []
 n = int(input())
-arr = []
+
 for i in range(n):
-    data = list(map(int, input().split()))
-    data.sort(reverse=True)
-    arr.append(data[:i + 1])
+    numbers = list(map(int, input().split()))
+    for number in numbers:
+        if len(q) < n:
+            heappush(q, number)
+        else:
+            if q[0] < number:
+                heappop(q)
+                heappush(q, number)
 
-
-ans = []
-for i in range(n):
-    for j in range(len(arr[i])):
-        ans.append(arr[i][j])
-
-ans.sort(reverse=True)
-print(ans[n - 1])
+print(q[0])
