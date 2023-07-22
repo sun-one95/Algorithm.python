@@ -62,6 +62,23 @@ for tc in range(int(input())):
     # else:
     #     print('NO')
     
-
-
-    
+'''
+다른풀이
+for tc in range(int(input())):
+    data = input()
+    stack = []
+    for d in data:
+        if d == '(':
+            stack.append(d)
+        elif d == ')':
+            if stack: # 스택에 괄호가 있다면('(') 
+                stack.pop()
+            else: # 스택에 괄호가 없다면 
+                print('NO')
+                break
+    else: # break문으로 끊기지 않고 수행됬을경우 수행한다.
+        if not stack:
+            print('YES')
+        else: # break안 걸렸더라도 괄호가 들어있다면 NO이다
+            print('NO')
+'''
