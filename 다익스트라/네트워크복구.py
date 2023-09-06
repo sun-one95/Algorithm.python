@@ -34,7 +34,7 @@ def dijkstra(start):
                 heappush(q, (cost, i[0]))
                 parent[i[0]] = now
 
-dijkstra(1)
+dijkstra(1) 
 
 print(n - 1)
 for i in range(2, n + 1):
